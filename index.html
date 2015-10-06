@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=1200" />
+        <title>CSS Variables</title>
+
+        <link href="styles/prettify.css" type="text/css" rel="stylesheet" />
+        <link href="styles/slides.css" type="text/css" rel="stylesheet" />
+
+        <style>
+            img {
+              max-width: 100%;
+            }
+
+            .file-structure p {
+              max-width: 50%;
+              float: left;
+            }
+            .file-structure p span {
+              display: block;
+              margin: 20px;
+            }
+        </style>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/fathom.min.js"></script>
+        <script src="js/prettify.js"></script>
+
+        <script>
+        $(document).ready(function() {
+            prettyPrint();
+            $("#presentation").fathom();
+
+            // show nested slides using up or down arrow
+            document.onkeydown = checkKey;
+            function checkKey(e) {
+                e = e || window.event;
+
+                if (e.keyCode == '38') {
+                    // up arrow
+                    e.preventDefault();
+                    $('.activeslide .nested').removeClass('nested--active');
+                }
+                else if (e.keyCode == '40') {
+                    // down arrow
+                    e.preventDefault();
+                    $('.activeslide .nested').addClass('nested--active');
+                }
+            }
+        });
+        </script>
+    </head>
+    <body>
+
+        <div id="presentation">
+            <div class="slide ">
+                <h1>The State of CSS Variables</h1>
+<pre class="prettyprint lang-css">
+:root {
+  --main-color: green;
+  --accent-color: gold;
+}
+
+h1 {
+  color: var(--main-color);
+}
+</pre>
+            </div>
+
+            <div class="slide file-structure">
+              <p>
+                <span>Bootstrap file structure</span>
+                <img src="img/bootstrap-sass.png" alt="File structure for bootstrap sass" />
+              </p>
+              <p>
+                <span>Web component file structure</span>
+                <img src="img/example-component-structure.png" alt="Example file structure for a web component" />
+              </p>
+            </div>
+
+
+            <div class="slide">
+                <h1>Browser support</h1>
+
+                <img src="img/support.png" alt="Browser support matrix from http://caniuse.com/#search=css%20vari" />
+
+                <p><a href="http://caniuse.com/#search=css%20vari">http://caniuse.com/#search=css%20vari</a></p>
+                <p><a href="https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/vZ0am_AdxxE">https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/vZ0am_AdxxE</a></p>
+            </div>
+
+            <div class="slide">
+                <h1>Syntax</h1>
+
+<pre class="prettyprint lang-css">
+:root {
+  --main-color: green;
+  --default-margin: 20px;
+}
+
+h1 {
+  color: var(--main-color);
+  background-color: var(--main-bg-color, gold);
+}
+</pre>
+                <div class="sidenote">
+                <ul>
+                    <li>must begin with -- (two dashes)</li>
+                    <li>case-sensitive</li>
+                    <li>represent values, not property names or selectors</li>
+                    <li>include units in the var definition (px, em, etc)</li>
+                    <li>fallback can be provided as second param and will be used when the variable is not defined</li>
+                </ul>
+                </div>
+            </div>
+
+            <div class="slide">
+
+                <h1>BAD:</h1>
+<pre class="prettyprint">
+--main-color: green;
+--default-margin: 20;
+--side: margin-top;
+
+h1 {
+    color: var(--Main-color);
+    margin: var(--default-margin, 10)px;
+    var(--side): 20px;
+}
+</pre>
+            </div>
+
+            <div class="slide">
+                <h1>Specificity</h1>
+
+                <p>Standard cascade rules apply</p>
+                <img src="img/cascade.png" alt="" style="float: right; width: 45%; border: 1px solid gray;" />
+
+<pre class="prettyprint" style="width:50%;">
+:root { --color: blue; }
+div { --color: green; }
+.alert { --color: red; }
+
+* {
+  color: var(--color);
+}
+</pre>
+            </div>
+
+            <div class="slide">
+                <h1>Resolving Dependency Cycles</h1>
+
+                <p>Variables can inherit from each other:</p>
+
+<pre class="prettyprint">
+:root {
+  --default-margin: 20px;
+  --double-margin: calc(var(--default-margin) * 2);
+}
+</pre>
+            </div>
+
+            <div class="slide">
+                <h1>Invalid dependencies</h1>
+                <p>When dependencies cannot be resolved, they compute to their initial value, which is guaranteed to be an invalid value.</p>
+
+<pre class="prettyprint">
+:root {
+  --one: calc(var(--two) + 20px);
+  --two: calc(var(--one) - 20px);
+}
+
+p {
+  margin-bottom: 50px;
+}
+p.one {
+  margin-bottom: var(--one);
+  /* results in margin-bottom: 0; */
+}
+</pre>
+            </div>
+
+            <div class="slide">
+              <h1>Using vars in shorthand properties</h1>
+<pre class="prettyprint">
+:root {
+  --default-font: bold 12pt/14pt Helvetica;
+  --default-font-size: 16px;
+}
+
+p {
+  font: var(--default-font);
+}
+
+span {
+  font: normal var(--default-font-size) serif;
+}
+</pre>
+            </div>
+
+            <div class="slide">
+                <h1>Resources:</h1>
+                <p><a href="http://www.w3.org/TR/css-variables-1/">http://www.w3.org/TR/css-variables-1/</a></p>
+                <p><a href="http://caniuse.com/#search=css%20vari">http://caniuse.com/#search=css%20vari</a></p>
+                <p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables">https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables</a></p>
+            </div>
+
+        </div>
+
+    </body>
+</html>

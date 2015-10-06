@@ -1,0 +1,195 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+input:focus {
+	outline: 0;
+}
+
+a,
+a:visited {
+	color: blue;
+}
+
+/* custom styles */
+body {
+	font-size: 100%;
+	font-family: helvetica, arial, sans-serif;
+	line-height: 1.2;
+}
+h1 {
+	font-size: 3rem;
+	margin-bottom: 1em;
+	padding-top: 50px;
+	font-weight: bold;
+	line-height: 1;
+}
+h2 {
+	font-size: 2.5rem;
+	font-weight: bold;
+}
+h3 {
+	font-size: 2rem;
+	font-weight: bold;
+}
+p {
+	margin-bottom: 1em;
+}
+em {
+	font-weight: bold;
+}
+
+pre,
+pre.prettyprint {
+	font-family: monospace;
+	margin-bottom: 1.5em;
+}
+
+blockquote {
+	padding: 0 1em;
+	font-style: italic;
+}
+ul {
+	margin: 0 0 1em 1em;
+	list-style: disc;
+}
+	ul ul {
+		margin-top: 0.5em;
+		font-size: 0.8em;
+	}
+li {
+	margin-left: 1em;
+	margin-bottom: 0.3em;
+}
+
+
+
+#presentation {
+	vertical-align: top;
+	white-space: nowrap;
+}
+
+div.slide {
+	display: inline-block;
+	position: relative;
+	padding: 0 50px 30px;
+	width: 1000px;
+	height: 700px;
+	font-size: 1.75rem;
+	line-height: 1.2;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	vertical-align: top;
+	box-shadow: 0 0 3px #999;
+	transition: opacity 1s linear;
+}
+	div.inactiveslide {
+		opacity: 0;
+	}
+	div.activeslide {
+		opacity: 1;
+	}
+
+/* iPad */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+	div.inactiveslide {
+		opacity: 1;
+	}
+}
+
+/* iPhone */
+@media only screen and (max-device-width: 480px) {
+	div.inactiveslide {
+		opacity: 1;
+	}
+}
+
+.slide.intro {
+	padding-top: 100px;
+	text-align: center;
+}
+.slide.intro h1 {
+	border-bottom: 1px solid black;
+}
+
+pre:first-child,
+pre.prettyprint:first-child {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+div.slide--pre {
+	padding-top: 0;
+	background: #000;
+}
+	div.slide--pre pre,
+	div.slide--pre pre.prettyprint {
+		border: 0;
+	}
+
+	.pre-title {
+		font-size: 0.8rem;
+		margin: 1em -51px 0;
+		padding: 0.75em 1em;
+		color: #666;
+		background: #ccc;
+	}
+	.pre-title + pre,
+	.pre-title + pre.prettyprint {
+		margin-top: 0;
+	}
+
+.sidenote {
+	font-size: 1.2rem;
+	margin-bottom: 2em;
+}
+
+.footnote {
+	font-size: 1rem;
+	font-style: italic;
+}
